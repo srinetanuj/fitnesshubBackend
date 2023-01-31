@@ -45,14 +45,13 @@ fitnesshubUserRouter.post("/signup", async(req,res)=>{
 
 fitnesshubUserRouter.post("/login",async(req,res)=>{
     const {email,password} = req.body;
-
     try{
         const user = await fitnesshubUserModel.find({email});
         if(user.length>0){
             bcrypt.compare(password, user[0].password, (err,result)=>{
                 if(result){
                     const token = jwt.sign({userID: user[0]._id}, "anuj");
-                    res.send([{"message":"Login Successfully", "token":token, fname: user[0].fname}])
+                    res.send([{"message":"Login Successfully", "token":token,"id": user[0]._id , fname: user[0].fname}])
                 }else{
                     res.send([])
                 }
