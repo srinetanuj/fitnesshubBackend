@@ -24,7 +24,8 @@ fitnesshubUserRouter.post("/signup", async(req,res)=>{
         const find_user = await fitnesshubUserModel.find({email});
 
         if(find_user.length>0){
-            res.send("User are already exist");
+            console.log("User are already exist");
+            res.send(find_user)
         }else{
             bcrypt.hash(password, 5, async(err,hash_password)=>{
                 if(err){
